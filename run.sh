@@ -1,0 +1,4 @@
+Rscript 0_Installpackages_createDirectories_DowloadFiles.R
+Rscript 1_organize_input.R
+Rscript 2_filter_snp.R
+Ecript 3_filter_corr.R

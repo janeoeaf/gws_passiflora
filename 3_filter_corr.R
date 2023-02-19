@@ -1,6 +1,6 @@
 rm(list=ls())
 library(dplyr)
-library(tidyr)
+library(reshape2)
 snp=readr::read_csv('./tmp/2_snp_after_callrate_maf.csv')
 corr_threshold=.95
 

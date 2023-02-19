@@ -3,7 +3,7 @@ install.packages('rrBLUP')
 install.packages('dplyr')
 install.packages('readr')
 install.packages('tidyr')
-
+install.packages('reshape2')
 
 
 dir.create('./dowload')

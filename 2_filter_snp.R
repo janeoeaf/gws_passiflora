@@ -48,7 +48,9 @@ snp_statistics=data.frame(
                 q=Q+H/2,
                 MAF=ifelse(p<q,p,q)) %>%
           mutate(class=ifelse(call_rate<call_rate_snp,'drop_callrate','keep'),
-                 class=ifelse(class=='keep' & MAF<maf,'drop_maf',class))
+                 class=ifelse(class=='keep' & MAF<maf,'drop_maf',class),
+                 class=ifelse(class=='keep' & H>.99,'drop_only_heterozygotes',class)
+                 )
 
 snp3=snp2[snp_statistics$class=='keep',]
 

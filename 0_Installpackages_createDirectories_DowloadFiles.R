@@ -1,22 +1,8 @@
-#install.packages('BGLR')
-#install.packages('rrBLUP')
-#install.packages('dplyr')
-# install.packages('readr')
-
-install.packages("boot")
-install.packages("class")
-install.packages("codetools")
-install.packages("foreign")
-install.packages("MASS")
-install.packages("Matrix")
-install.packages("nlme")
-install.packages("spatial")
-install.packages("survival")
-
-install.packages("BiocManager")
-BiocManager::install("bibtex")
-BiocManager::install("snpStats")
-install.packages('bigsnpr')
+install.packages('BGLR')
+install.packages('rrBLUP')
+install.packages('dplyr')
+install.packages('readr')
+install.packages('tidyr')
 
 
 
@@ -28,7 +14,7 @@ dir.create('./output')
 
 
 
-#install.packages('aws.s3')
+install.packages('aws.s3')
 library(aws.s3)
 
 bucket='uenf'

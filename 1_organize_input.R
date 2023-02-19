@@ -1,13 +1,18 @@
 rm(list=ls())
 library(dplyr)
-
+library(aws.s3)
 #phe=readr::read_csv('./dowload/phenotypes.csv')
 #snp=readr::read_csv('./dowload/snp.csv',na='-')[1:21140,1:159] %>% distinct() %>% mutate(snp_id=paste0('snp',1:n()))
 
 
 bucket='uenf'
-snp=s3read_using(FUN=read.csv,object='debora/dowload/snp.csv',bucket = bucket)[1:21140,1:159] %>% distinct() %>% mutate(snp_id=paste0('snp',1:n()))
+snp=s3read_using(FUN=readr::read_csv,na='-',object='debora/dowload/snp.csv',bucket = bucket)[1:21140,1:159] %>% distinct() %>% mutate(snp_id=paste0('snp',1:n()))
 phe=s3read_using(FUN=read.csv,object='debora/dowload/phenotypes.csv',bucket = bucket)
+
+#--fix names
+phe=phe %>% mutate(Amostra.SNP=gsub(Amostra.SNP,pattern=' ',replacement=''))
+colnames(snp)[-c(1:3)]<-gsub(colnames(snp)[-c(1:3)],pattern='\\.',replacement='')
+
 
 snp_info=snp %>% distinct(SNP.CloneID,ClusterConsensusSequence,SNP.variant,snp_id)
 

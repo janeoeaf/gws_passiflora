@@ -6,8 +6,7 @@ library(aws.s3)
 #snp=readr::read_csv('./tmp/2_snp_after_callrate_maf.csv')
 
 bucket='uenf'
-snp=s3read_using(FUN=readr::read_csv,object='debora/tmp/2_snp_after_callrate_maf.csv',bucket=bucket)[1:100,]
-
+snp=s3read_using(FUN=read.csv,object='debora/tmp/2_snp_after_callrate_maf.csv',bucket=bucket)
 corr_threshold=.95
 
 snp_name=snp$snp_id
@@ -28,7 +27,8 @@ snp2=snp %>% filter(!snp_id%in%corr$drop)
 
 readr::write_csv(corr,'./tmp/3_corralation_snp.csv')
 readr::write_csv(snp2,'./tmp/3_snp_after_callrate_maf_corr.csv')
-.
-s3write_using(corr,FUN=readr::write_csv,object='debora/tmp/3_corralation_snp.csv')
-s3write_using(snp2,FUN=readr::write_csv,object='debora/tmp/3_snp_after_callrate_maf_corr.csv')
+
+s3write_using(corr,FUN=readr::write_csv,object='debora/tmp/3_correlation_snp.csv',bucket=bucket)
+s3write_using(snp2,FUN=readr::write_csv,object='debora/tmp/3_snp_after_callrate_maf_corr.csv',bucket=bucket)
+s3write_using(corr %>% filter(drop!='none'),FUN=readr::write_csv,object='debora/tmp/3_droped_by_correlation_snp.csv',bucket=bucket)
 

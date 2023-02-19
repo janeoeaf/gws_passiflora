@@ -3,7 +3,7 @@ library(aws.s3)
 #snp=readr::read_csv('./intput/1_snp.csv')
 
 bucket='uenf'
-snp=s3write_using(FUN=readr::read_csv,object='debora/input/1_snp.csv',bucket = bucket)
+snp=s3read_using(FUN=readr::read_csv,object='debora/input/1_snp.csv',bucket = bucket)
 
 call_rate_ind=.9
 call_rate_snp=.95
@@ -64,7 +64,7 @@ snp3=snp2[snp_statistics$class=='keep',]
 #readr::write_csv(snp_statistics,'./tmp/2_snp_summary_callrate_maf.csv')
 
 
-s3write_using(snp3,FUN=readr::write_csv,object='debora/tmp/2_snp_after_callrate_maf.csv')
-s3write_using(ind_statistics,FUN=readr::write_csv,object='debora/tmp/2_individual_summary_callrate.csv')
-s3write_using(snp_statistics,FUN=readr::write_csv,object='debora/tmp/2_snp_summary_callrate_maf.csv')
+s3write_using(snp3,FUN=readr::write_csv,object='debora/tmp/2_snp_after_callrate_maf.csv',bucket = bucket)
+s3write_using(ind_statistics,FUN=readr::write_csv,object='debora/tmp/2_individual_summary_callrate.csv',bucket = bucket)
+s3write_using(snp_statistics,FUN=readr::write_csv,object='debora/tmp/2_snp_summary_callrate_maf.csv',bucket = bucket)
 

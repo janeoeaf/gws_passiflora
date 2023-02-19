@@ -1,9 +1,10 @@
-install.packages('BGLR')
-install.packages('rrBLUP')
-install.packages('dplyr')
-install.packages('readr')
-install.packages('tidyr')
-install.packages('reshape2')
+# install.packages('BGLR')
+# install.packages('rrBLUP')
+# install.packages('dplyr')
+# install.packages('readr')
+# install.packages('tidyr')
+# install.packages('reshape2')
+# install.packages('aws.s3')
 
 
 dir.create('./dowload')
@@ -14,7 +15,6 @@ dir.create('./output')
 
 
 
-install.packages('aws.s3')
 library(aws.s3)
 
 bucket='uenf'
@@ -25,5 +25,5 @@ phe=s3read_using(FUN=read.csv,object ='debora/Fenotipagem 150 ind.xlsx - Plan1.c
 #readr::write_csv(snp,'./dowload/snp.csv')
 #readr::write_csv(phe,'./dowload/phenotypes.csv')
 
-s3write_using(snp,FUN=read.csv,object='debora/dowload/snp.csv',bucket = bucket)
-s3write_using(phe,FUN=read.csv,object='debora/dowload/phenotypes.csv',bucket = bucket)
+s3write_using(snp,FUN=readr::write_csv,object='debora/dowload/snp.csv',bucket = bucket)
+s3write_using(phe,FUN=readr::write_csv,object='debora/dowload/phenotypes.csv',bucket = bucket)

@@ -1,4 +1,7 @@
 Rscript 0_Installpackages_createDirectories_DowloadFiles.R
 Rscript 1_organize_input.R
 Rscript 2_filter_snp.R
-Ecript 3_filter_corr.R
+Rscript 3_filter_corr.R
+Rscript 4_gws_rrblup.R
+Rscript 5_crossvalidation_5fold_rrblup.R
+Rscript 6_gws_heritability_gblup.R

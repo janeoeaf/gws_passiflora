@@ -25,7 +25,7 @@ ind_statistics=data.frame(
                     class=ifelse(call_rate<call_rate_ind,'drop_callrate','keep'))
 
 
-snp2=snp[,c(1,ind_statistics$class=='keep')]
+snp2=snp[,c(T,ind_statistics$class=='keep')]
 
 
 #---summary snp
@@ -48,9 +48,12 @@ snp_statistics=data.frame(
                 q=Q+H/2,
                 MAF=ifelse(p<q,p,q)) %>%
           mutate(class=ifelse(call_rate<call_rate_snp,'drop_callrate','keep'),
-                 class=ifelse(class=='keep' & MAF<maf,'drop_maf','keep'))
+                 class=ifelse(class=='keep' & MAF<maf,'drop_maf',class))
+
+snp3=snp2[snp_statistics$class=='keep',]
 
 
-
-
+readr::write_csv(snp3,'./tmp/2_snp_after_callrate_maf.csv')
+readr::write_csv(ind_statistics,'./tmp/2_individual_summary_callrate.csv')
+readr::write_csv(snp_statistics,'./tmp/2_snp_summary_callrate_maf.csv')
 

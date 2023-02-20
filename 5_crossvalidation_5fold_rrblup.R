@@ -2,6 +2,7 @@ rm(list=ls())
 library(rrBLUP)
 library(aws.s3)
 library(reshape2)
+library(dplyr)
 
 bucket='uenf'
 k=5

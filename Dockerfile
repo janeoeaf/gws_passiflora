@@ -8,4 +8,4 @@ RUN R --no-save -e "install.packages('tidyr')"
 RUN R --no-save -e "install.packages('reshape2')"
 RUN R --no-save -e "install.packages('aws.s3')"
 COPY . .
-ENTRYPOINT /bin/bash
+ENTRYPOINT /bin/bash ./run.sh 

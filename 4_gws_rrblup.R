@@ -2,6 +2,7 @@ rm(list=ls())
 library(rrBLUP)
 library(aws.s3)
 library(reshape2)
+library(dplyr)
 
 bucket='uenf'
 phe=s3read_using(FUN=readr::read_csv,object='debora/input/1_pheno.csv',bucket = bucket)

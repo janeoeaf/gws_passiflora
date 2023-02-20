@@ -1,5 +1,7 @@
 rm(list=ls())
 library(aws.s3)
+library(dplyr)
+
 #snp=readr::read_csv('./intput/1_snp.csv')
 
 bucket='uenf'

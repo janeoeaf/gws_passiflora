@@ -6,7 +6,7 @@ library(aws.s3)
 #snp=readr::read_csv('./tmp/2_snp_after_callrate_maf.csv')
 
 bucket='uenf'
-snp=s3read_using(FUN=read.csv,object='debora/tmp/2_snp_after_callrate_maf.csv',bucket=bucket)[1:100,]
+snp=s3read_using(FUN=read.csv,object='debora/tmp/2_snp_after_callrate_maf.csv',bucket=bucket)
 corr_threshold=.95
 
 snp_name=snp$snp_id

@@ -1,11 +1,7 @@
 rm(list=ls())
-library(aws.s3)
 library(dplyr)
 
-#snp=readr::read_csv('./intput/1_snp.csv')
-
-bucket='uenf'
-snp=s3read_using(FUN=readr::read_csv,object='debora/input/1_snp.csv',bucket = bucket)
+snp=readr::read_csv('./input/snp.csv')
 
 call_rate_ind=.9
 call_rate_snp=.95
@@ -55,18 +51,19 @@ snp_statistics=data.frame(
                 MAF=ifelse(p<q,p,q)) %>%
           mutate(class=ifelse(call_rate<call_rate_snp,'drop_callrate','keep'),
                  class=ifelse(class=='keep' & MAF<maf,'drop_maf',class),
-                 class=ifelse(class=='keep' & H>.99,'drop_only_heterozygotes',class)
+                 class=ifelse(class=='keep' & H>.99,'drop_only_heterozygotes',class),
+                 chisq_HWE=(P-p^2)^2+(H-2*p*q)^2+(Q-q^2)^2,
+                 chisq_HWE_pvalue=pchisq(chisq_HWE,1,lower.tail = F)
                  )
 
 snp3=snp2[snp_statistics$class=='keep',]
 
 
-#readr::write_csv(snp3,'./tmp/2_snp_after_callrate_maf.csv')
-#readr::write_csv(ind_statistics,'./tmp/2_individual_summary_callrate.csv')
-#readr::write_csv(snp_statistics,'./tmp/2_snp_summary_callrate_maf.csv')
+readr::write_csv(snp3,'./tmp/2_snp_after_callrate_maf.csv')
+readr::write_csv(ind_statistics,'./tmp/2_individual_summary_callrate.csv')
+readr::write_csv(snp_statistics,'./tmp/2_snp_summary_callrate_maf.csv')
 
-
-s3write_using(snp3,FUN=readr::write_csv,object='debora/tmp/2_snp_after_callrate_maf.csv',bucket = bucket)
-s3write_using(ind_statistics,FUN=readr::write_csv,object='debora/tmp/2_individual_summary_callrate.csv',bucket = bucket)
-s3write_using(snp_statistics,FUN=readr::write_csv,object='debora/tmp/2_snp_summary_callrate_maf.csv',bucket = bucket)
+#aws.s3::s3write_using(snp3,FUN=readr::write_csv,object='debora/tmp/2_snp_after_callrate_maf.csv',bucket = bucket)
+#aws.s3::s3write_using(ind_statistics,FUN=readr::write_csv,object='debora/tmp/2_individual_summary_callrate.csv',bucket = bucket)
+#aws.s3::s3write_using(snp_statistics,FUN=readr::write_csv,object='debora/tmp/2_snp_summary_callrate_maf.csv',bucket = bucket)
 

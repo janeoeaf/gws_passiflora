@@ -1,8 +1,9 @@
-echo 0_Installpackages_createDirectories_DowloadFiles.R
-Rscript 0_Installpackages_createDirectories_DowloadFiles.R
+mkdir -p input
+mkdir -p tmp
+mkdir -p output
 
-echo 1_organize_input.R
-Rscript 1_organize_input.R
+aws s3 sync s3://uenf/debora/input/ ./input/
+
 
 echo 2_filter_snp.R
 Rscript 2_filter_snp.R

@@ -4,9 +4,9 @@ library(aws.s3)
 library(reshape2)
 library(dplyr)
 
-bucket='uenf'
-phe=s3read_using(FUN=readr::read_csv,object='debora/input/1_pheno.csv',bucket = bucket)
-snp=s3read_using(FUN=readr::read_csv,object='debora/tmp/3_snp_after_callrate_maf_corr.csv',bucket=bucket)
+
+phe=readr::read_csv('./input/pheno.csv')
+snp=readr::read_csv('./tmp/3_snp_after_callrate_maf_corr.csv')
 
 impute_fun=function(x){
   x[is.na(x)]<-mean(x,na.rm=T)
@@ -40,4 +40,4 @@ for(tr in traits){
 }
 
 
-s3write_using(h2_out,FUN=readr::write_csv,object='debora/tmp/6_heritability_gblup.csv',bucket=bucket)
+readr::write_csv('./tmp/6_heritability_gblup.csv')

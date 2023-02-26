@@ -6,8 +6,8 @@ library(dplyr)
 
 bucket='uenf'
 k=5
-phe=s3read_using(FUN=readr::read_csv,object='debora/input/1_pheno.csv',bucket = bucket)
-snp=s3read_using(FUN=readr::read_csv,object='debora/tmp/3_snp_after_callrate_maf_corr.csv',bucket=bucket)
+phe=readr::read_csv('./input/pheno.csv')
+snp=readr::read_csv('./tmp/3_snp_after_callrate_maf_corr.csv')
 
 impute_fun=function(x){
   x[is.na(x)]<-mean(x,na.rm=T)
@@ -48,5 +48,5 @@ for(tr in traits){
 
 results=gebv_out %>% group_by(model,trait,k) %>% summarise(r=cor(pheno,gebv),n=n())
 
-s3write_using(gebv_out,FUN=readr::write_csv,object='debora/tmp/5_gebv_rrblup_crossvalidation_check.csv',bucket=bucket)
-s3write_using(results,FUN=readr::write_csv,object='debora/tmp/5_5fold_rrblup.csv',bucket=bucket)
+readr::write_csv('./tmp/5_gebv_rrblup_crossvalidation_check.csv')
+readr::write_csv('./tmp/5_5fold_rrblup.csv')
